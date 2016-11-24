@@ -1,0 +1,22 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+server:
+    port: 8083
+spring:
+    application:
+        name: reservation-client
+    cloud:
+        config:
+            uri: http://localhost:8888
+        stream:
+            bindings:
+                output:
+                    content-type: application/json
+                    destination: ticktock
+                    group: custom-group
+            kafka:
+                binder:
+                    brokers: 10.120.31.186
+                    zkNodes: 10.120.31.186

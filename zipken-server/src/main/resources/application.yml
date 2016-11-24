@@ -1,0 +1,17 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+server:
+    port: 8085
+spring:
+    application:
+        name: zipken-server
+    cloud:
+        config:
+            uri: http://localhost:8888
+        stream:
+            kafka:
+                binder:
+                    brokers: 10.120.31.186
+                    zkNodes: 10.120.31.186

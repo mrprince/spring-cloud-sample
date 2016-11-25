@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @EnableResourceServer
-public class ResourceServerApplication {
+public class Oauth2ResourceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ResourceServerApplication.class, args);
+		SpringApplication.run(Oauth2ResourceApplication.class, args);
 	}
 
     @RestController

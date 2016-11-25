@@ -30,10 +30,10 @@ import java.security.Principal;
 @SpringBootApplication
 @EnableResourceServer
 @SessionAttributes("authorizationRequest")
-public class AuthServerApplication extends WebMvcConfigurerAdapter {
+public class Oauth2AuthServerApplication extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
-        SpringApplication.run(AuthServerApplication.class, args);
+        SpringApplication.run(Oauth2AuthServerApplication.class, args);
     }
 
     @Controller

@@ -1,6 +1,6 @@
 logging:
   level:
-    org.springframework.security: DEBUG
+    org.springframework.security: info
 
 server:
   port: 8088
@@ -8,6 +8,8 @@ server:
 spring:
     application:
         name: oauth2-web
+    redis:
+      host: 10.120.31.186
 
 security:
   user:
@@ -33,3 +35,11 @@ zuul:
     user:
       path: /user/**
       url: http://localhost:8086/user
+
+
+wro4j:
+    filterUrl : /wro
+    cacheName : wro4j
+    debug : false
+    managerFactory :
+        preProcessors : removeSourceMaps, cssUrlRewriting, cssImport, cssMinJawr, semicolonAppender, jsMin

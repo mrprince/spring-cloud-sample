@@ -3,6 +3,7 @@ package com.example;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,7 @@ import java.security.Principal;
 
 @SpringBootApplication
 @EnableZuulProxy
+@EnableCaching
 public class Oauth2WebApplication {
 
     public static void main(String[] args) {
@@ -36,7 +38,7 @@ public class Oauth2WebApplication {
         public void configure(HttpSecurity http) throws Exception {
             http.logout().and()
                     .authorizeRequests()
-                    .antMatchers("/index.html", "/home.html", "/", "/login").permitAll()
+                    .antMatchers("/index.html", "/home.html", "/","/webjars/*","/wro/*", "/login").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .csrf()

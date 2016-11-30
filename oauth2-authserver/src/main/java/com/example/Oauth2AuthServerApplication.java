@@ -37,7 +37,7 @@ public class Oauth2AuthServerApplication extends WebMvcConfigurerAdapter {
     }
 
     @Controller
-    protected static class UserController{
+    protected static class UserController {
         @RequestMapping("/user")
         @ResponseBody
         public Principal user(Principal user) {
@@ -54,6 +54,7 @@ public class Oauth2AuthServerApplication extends WebMvcConfigurerAdapter {
             auth.inMemoryAuthentication()
                     .withUser("admin").password("admin").roles("ADMIN");
         }
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.formLogin().loginPage("/login").permitAll()
@@ -94,7 +95,9 @@ public class Oauth2AuthServerApplication extends WebMvcConfigurerAdapter {
                     .withClient("clientId")
                     .secret("clientSecret")
                     .authorizedGrantTypes("authorization_code", "refresh_token",
-                            "password").scopes("openid");
+                            "password")
+                    .autoApprove(true) //auto approve
+                    .scopes("openid");
         }
 
         @Override

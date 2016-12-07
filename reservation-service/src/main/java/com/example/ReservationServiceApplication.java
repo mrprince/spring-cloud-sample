@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
@@ -14,6 +17,7 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.integration.annotation.MessageEndpoint;
@@ -77,16 +81,24 @@ class ReservationRecevier{
 @RepositoryRestResource
 interface ReservationRepository extends JpaRepository <Reservation,Long>{
 	@RestResource(path = "by-name")
+    @Cacheable("reservation")
 	Collection<Reservation> findByReservationName(@Param("rn") String rn);
-}
 
+    @CachePut(value = "reservation", key = "#reservation.id")
+    <S extends Reservation> S save(S entity);
+
+    @CacheEvict(value = "reservation", key = "#id")
+    void delete(Long id);
+}
 
 @Entity
 @Data
 class Reservation{
 	@Id
 	@GeneratedValue
-	private Long Id;
+	private Long id;
+
+    @Description("Reservation ")
     private String reservationName;
 
     public Reservation() {

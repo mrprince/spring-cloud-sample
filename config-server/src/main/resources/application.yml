@@ -17,3 +17,8 @@ spring:
                 git:
                     uri: https://github.com/mrprince/springcloud
                     search-paths: config-repo
+        stream:
+            kafka:
+                binder:
+                    brokers: 10.120.31.186
+                    zkNodes: 10.120.31.186

@@ -11,6 +11,8 @@ server:
 spring:
     application:
         name: reservation-service
+    redis:
+      host: 10.120.31.186
     cloud:
         config:
             uri: http://localhost:8888

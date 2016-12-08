@@ -30,9 +30,9 @@ public class DataRestApplicationTests {
 
         userRepository.findOne(1);
 
-        //userRepository.delete(userRepository.findOne(1));
+        userRepository.delete(userRepository.findOne(1));
 
-        //System.out.println("---------->>>" + userRepository.findByName("chester0"));
+        System.out.println("---------->>>" + userRepository.findByName("chester0"));
 
     }
 

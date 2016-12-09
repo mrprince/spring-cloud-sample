@@ -3,3 +3,6 @@ spring:
       host: 10.120.31.186
     jpa:
       show-sql: true
+      properties:
+        hibernate:
+          enable_lazy_load_no_trans: true

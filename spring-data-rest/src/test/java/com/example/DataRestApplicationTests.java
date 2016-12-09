@@ -1,38 +1,42 @@
 package com.example;
 
+import com.example.dao.UserRepository;
+import com.example.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DataRestApplicationTests {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Test
     public void contextLoads() {
     }
 
+
     @Test
     public void test() {
 
-        for (int i = 0; i < 10; i++) {
-            User user = new User();
-            user.setName("chester" + i);
-            userRepository.save(user);
-        }
+        Arrays.asList("tom,jerry,admin".split(",")).forEach(name -> userRepository.save(new User(null, name, new Date())));
+        System.out.println("----------->>>" + userRepository.findAll());
 
-        System.out.println("---------->>>" + userRepository.findByName("chester0"));
-        System.out.println("---------->>>" + userRepository.findByName("chester0"));
+        Integer pageNumber = 1;
+        Integer pageSize = 5;
+        PageRequest page = new PageRequest(pageNumber - 1, pageSize, Sort.Direction.DESC, "createDate");
+        userRepository.findAll(page).forEach(user -> System.out.println("----->>" + user));
 
-        userRepository.findOne(1);
+        System.out.println("-->" + userRepository.findOne(1));
 
-        userRepository.delete(userRepository.findOne(1));
-
-        System.out.println("---------->>>" + userRepository.findByName("chester0"));
 
     }
 

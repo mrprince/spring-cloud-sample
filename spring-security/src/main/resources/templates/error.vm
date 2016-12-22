@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+<p>error: ${status} ${error}</p>
+
+</body>
+
+</html>

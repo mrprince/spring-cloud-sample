@@ -1,8 +1,8 @@
 package com.example;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.CacheManager;
@@ -14,6 +14,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.nio.charset.Charset;
 
 @SpringBootApplication
 @EnableCaching
@@ -27,7 +29,8 @@ public class DataRestApplication {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(rcf);
         template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new JsonRedisSerializer());
+        template.setValueSerializer(new FastJson2JsonRedisSerializer());
+        //template.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
         return template;
     }
 
@@ -39,33 +42,70 @@ public class DataRestApplication {
         return redisCacheManager;
     }
 
-    static class JsonRedisSerializer implements RedisSerializer<Object> {
-        private final ObjectMapper om;
+    static class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
 
-        public JsonRedisSerializer() {
-            this.om = new ObjectMapper().enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+
+        private Class<T> clazz;
+
+        public FastJson2JsonRedisSerializer(){
         }
 
-        @Override
-        public byte[] serialize(Object t) throws SerializationException {
-            try {
-                return om.writeValueAsBytes(t);
-            } catch (JsonProcessingException e) {
-                throw new SerializationException(e.getMessage(), e);
+        public FastJson2JsonRedisSerializer(Class<T> clazz) {
+            super();
+            this.clazz = clazz;
+        }
+
+        public byte[] serialize(T t) throws SerializationException {
+            if (t == null) {
+                return new byte[0];
             }
+            System.out.println("!!!!!!!!!!!!!!!!!!!"+t);
+            JSONObject json = JSONObject.fromObject(t);
+
+
+            //return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);
         }
 
-        @Override
-        public Object deserialize(byte[] bytes) throws SerializationException {
-            if (bytes == null) {
+        public T deserialize(byte[] bytes) throws SerializationException {
+            if (bytes == null || bytes.length <= 0) {
                 return null;
             }
-            try {
-                return om.readValue(bytes, Object.class);
-            } catch (Exception e) {
-                throw new SerializationException(e.getMessage(), e);
-            }
+            String str = new String(bytes, DEFAULT_CHARSET);
+
+            System.out.println("@@@@@@@@@@@@@@"+str);
+
+            //return JSON.parseObject(str, this.clazz);
         }
     }
+
+//    static class JsonRedisSerializer implements RedisSerializer<Object> {
+//        private final ObjectMapper om;
+//
+//        public JsonRedisSerializer() {
+//            this.om = new ObjectMapper().enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+//        }
+//
+//        @Override
+//        public byte[] serialize(Object t) throws SerializationException {
+//            try {
+//                return om.writeValueAsBytes(t);
+//            } catch (JsonProcessingException e) {
+//                throw new SerializationException(e.getMessage(), e);
+//            }
+//        }
+//
+//        @Override
+//        public Object deserialize(byte[] bytes) throws SerializationException {
+//            if (bytes == null) {
+//                return null;
+//            }
+//            try {
+//                return om.readValue(bytes, Object.class);
+//            } catch (Exception e) {
+//                throw new SerializationException(e.getMessage(), e);
+//            }
+//        }
+//    }
 }
 

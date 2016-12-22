@@ -35,6 +35,10 @@ public class DataRestApplicationTests {
         PageRequest page = new PageRequest(pageNumber - 1, pageSize, Sort.Direction.DESC, "createDate");
         userRepository.findAll(page).forEach(user -> System.out.println("----->>" + user));
 
+        userRepository.findAll(page).forEach(user -> System.out.println("----->>" + user));
+
+        //System.out.println("@@@@@@@@@"+userRepository.findAll(page));
+
         System.out.println("-->" + userRepository.findOne(1));
 
 

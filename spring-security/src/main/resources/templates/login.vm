@@ -6,7 +6,7 @@
 <body>
 
 <form role="form" action="/login" method="post">
-    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+    <input type="hidden" name="$_csrf.parameterName" value="$_csrf.token">
 
     <div>
         <label for="username">User Name</label>
@@ -21,12 +21,9 @@
         <input type="checkbox" name="remember-me" id="remember-me"/>
     </div>
     <button type="submit">Sign in</button>
-##    #if (${param.error})
-##        <div>Invalid username and password.</div>
-##    #end
-##    #if (${param.logout})
-##        <div>You have been logged out.</div>
-##    #end
+    #if ($message)
+        <div>$message</div>
+    #end
 </form>
 
 

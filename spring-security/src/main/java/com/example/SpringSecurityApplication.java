@@ -17,25 +17,24 @@ public class SpringSecurityApplication {
 
     @Configuration
     protected static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
-                    .antMatchers("/", "/public/**").permitAll()
+                    //.antMatchers("/login,/public/**").permitAll()
                     .antMatchers("/users/**").hasAuthority("ADMIN")
                     .anyRequest().fullyAuthenticated()
                     .and()
                     .formLogin()
                     .loginPage("/login")
+                    .defaultSuccessUrl("/")
                     .failureUrl("/login?error")
                     .permitAll()
                     .and()
                     .logout()
                     .logoutUrl("/logout")
                     .deleteCookies("remember-me")
-                    .logoutSuccessUrl("/home")
-                    .permitAll()
-                    .and()
+                    .logoutSuccessUrl("/login?logout")
+                    .permitAll().and()
                     .rememberMe();
         }
 

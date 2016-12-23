@@ -1,2 +1,3 @@
-INSERT INTO `users` VALUES ('1', 'chengq4@lenovo.com', '1', 'admin', 'admin');
-INSERT INTO `user_roles` VALUES ('1', 'ADMIN', '1');
+INSERT INTO USERS (ID, EMAIL, ENABLED, PASSWORD, USER_NAME) VALUES (1, 'admin@lenovo.com', TRUE, 'admin', 'admin');
+INSERT INTO PUBLIC.ROLES(ID, ROLE_NAME) VALUES (1, 'ADMIN');
+INSERT INTO USER_ROLES (USER_ID, ROLE_ID) VALUES (1, 1);

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Create a new user</title>
+</head>
+<body>
+<nav role="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+    </ul>
+</nav>
+
+<h1>Create a new user</h1>
+
+<form role="form" name="form" action="" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+    <div>
+        <label for="userName">User Name</label>
+        <input type="text" name="userName" id="userName" value="$!user.userName" required autofocus/>
+    </div>
+
+    <div>
+        <label for="email">Email address</label>
+        <input type="email" name="email" id="email" value="$!user.email" required autofocus/>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required/>
+    </div>
+    <div>
+        <label for="passwordRepeated">Repeat</label>
+        <input type="password" name="passwordRepeated" id="passwordRepeated" required/>
+    </div>
+    <div>
+        <label for="roles">Role</label>
+        <select name="roles" id="roles" multiple="multiple" required>
+            <option>USER</option>
+            <option>ADMIN</option>
+        </select>
+    </div>
+    <button type="submit">Save</button>
+</form>
+
+
+</body>
+</html>

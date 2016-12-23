@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +15,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @NotNull(message = "{error.user.username.null}")
     @NotEmpty(message = "{error.user.username.empty}")
@@ -33,32 +31,12 @@ public class User implements UserDetails {
     private String email;
     private boolean enabled;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private Set<Role> roles;
-
-
-    @Transient
-    public Set<Permission> getPermissions() {
-        Set<Permission> perms = new HashSet<Permission>();
-        for (Role role : roles) {
-            perms.addAll(role.getPermissions());
-        }
-        return perms;
-    }
-
-    @Override
-    @Transient
-    public Collection<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-        authorities.addAll(getRoles());
-        authorities.addAll(getPermissions());
-        return authorities;
-    }
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -76,11 +54,11 @@ public class User implements UserDetails {
     }
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -127,6 +105,10 @@ public class User implements UserDetails {
         return roles;
     }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("User{");
@@ -140,7 +122,22 @@ public class User implements UserDetails {
         return sb.toString();
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    @Transient
+    private Set<Permission> getPermissions() {
+        Set<Permission> perms = new HashSet<Permission>();
+        for (Role role : roles) {
+            perms.addAll(role.getPermissions());
+        }
+        return perms;
     }
+
+    @Override
+    @Transient
+    public Collection<GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        authorities.addAll(getRoles());
+        authorities.addAll(getPermissions());
+        return authorities;
+    }
+
 }

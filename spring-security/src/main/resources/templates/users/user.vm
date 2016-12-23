@@ -34,10 +34,15 @@
         <input type="password" name="passwordRepeated" id="passwordRepeated" required/>
     </div>
     <div>
-        <label for="roles">Role</label>
-        <select name="roles" id="roles" multiple="multiple" required>
-            <option>USER</option>
-            <option>ADMIN</option>
+        <label>Enabled</label>
+        <input type="checkbox" name="enabled"/>
+    </div>
+    <div>
+        <label for="role">Role</label>
+        <select name="roles" id="role" multiple="multiple" required>
+            #foreach($role in $roles)
+                <option value="$role.id">$role.roleName</option>
+            #end
         </select>
     </div>
     <button type="submit">Save</button>

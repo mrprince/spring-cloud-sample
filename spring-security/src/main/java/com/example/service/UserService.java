@@ -7,4 +7,6 @@ public interface UserService extends UserDetailsService {
     public void create(User user);
 
     public Iterable<User> getAllUsers();
+
+    public void delete(Long id);
 }

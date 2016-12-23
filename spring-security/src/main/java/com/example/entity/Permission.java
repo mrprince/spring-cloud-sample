@@ -13,7 +13,7 @@ import java.util.Set;
 public class Permission implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @NotNull(message = "{error.permission.permissionName.null}")
     @NotEmpty(message = "{error.permission.permissionName.empty}")
@@ -39,11 +39,11 @@ public class Permission implements GrantedAuthority {
         return permissionName;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -7,8 +7,8 @@
 <body>
 <nav role="navigation">
     <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/users/create">Create a new user</a></li>
+        <li><a href="${request.contextPath}/">Home</a></li>
+        <li><a href="${request.contextPath}/users/create">Create a new user</a></li>
     </ul>
 </nav>
 
@@ -31,7 +31,7 @@
             <td>$user.email</td>
             <td>$user.enabled</td>
             <td>#foreach($role in $user.roles) $role.roleName #end</td>
-            <td><a href="/users/delete?id=$user.id">delete</a></td>
+            <td><a href="${request.contextPath}/users/delete?id=$user.id">delete</a></td>
         </tr>
         #end
     </tbody>

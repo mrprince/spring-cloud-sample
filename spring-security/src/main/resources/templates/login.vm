@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<form role="form" action="/login" method="post">
+<form role="form" action="${request.contextPath}/login" method="post">
     <input type="hidden" name="$_csrf.parameterName" value="$_csrf.token">
 
     <div>

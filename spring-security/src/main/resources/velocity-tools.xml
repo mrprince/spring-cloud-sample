@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<toolbox>
+
+    <tool>
+        <key>springSecurityTool</key>
+        <scope>request</scope>
+        <class>com.example.util.SpringSecurityTool</class>
+    </tool>
+
+</toolbox>

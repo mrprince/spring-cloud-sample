@@ -7,13 +7,13 @@
 <body>
 <nav role="navigation">
     <ul>
-        <li><a href="/">Home</a></li>
+        <li><a href="${request.contextPath}/">Home</a></li>
     </ul>
 </nav>
 
 <h1>Create a new user</h1>
 
-<form role="form" name="form" action="" method="post">
+<form role="form" name="form" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
     <div>

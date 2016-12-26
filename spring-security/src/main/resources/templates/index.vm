@@ -5,12 +5,14 @@
     <title>Home page</title>
 </head>
 <body>
+<h2>Hello, ${springSecurityTool.principal}!</h2>
+
 <nav role="navigation">
     <ul>
-        <li><a href="/users/create">Create a new user</a></li>
-        <li><a href="/users">View all users</a></li>
+        <li><a href="${request.contextPath}/users/create">Create a new user</a></li>
+        <li><a href="${request.contextPath}/users">View all users</a></li>
         <li>
-            <form action="/logout" method="post">
+            <form action="${request.contextPath}/logout" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit">Log out</button>
             </form>

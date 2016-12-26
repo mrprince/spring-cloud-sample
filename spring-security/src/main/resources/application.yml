@@ -1,16 +1,12 @@
 spring:
   jpa:
     show-sql: true
-  velocity:
-    dateToolAttribute: dateTool
-    numberToolAttribute: numberTool
-    requestContextAttribute: request
-    expose-session-attributes: true
-    expose-request-attributes: true
-    toolbox-config-location: velocity-tools.xml
-server.contextPath: /test
+  messages:
+    basename: i18n/messages
+    fallbackToSystemLocale: false
+server:
+  contextPath: /test
 
 #logging.level.org.hibernate.type: TRACE
-
 
 

@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <title>Login Page</title>
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <!--font-awesome-->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+    <!--custom css-->
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+
+<div class="container-fluid wrapper">
+    <div class="login container col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Please login</div>
+            <div class="panel-body">
+                <form class="form-horizontal" th:action="@{/login}" method="post">
+                    <div th:if="${param.error}" class="alert bg-danger">
+                        <i class="fa fa-times-circle-o"></i>&nbsp;Invalid username and password.
+                    </div>
+                    <div th:if="${param.logout}" class="alert bg-success">
+                        <i class="fa fa-check-circle"></i>&nbsp;You have been logged out.
+                    </div>
+                    <div class="form-group">
+                        <label for="username" class="col-sm-2 control-label">Username</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="Username"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    </div>
+</div>
+</body>
+</html>

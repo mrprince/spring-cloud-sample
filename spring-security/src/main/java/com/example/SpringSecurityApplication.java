@@ -23,7 +23,7 @@ public class SpringSecurityApplication {
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/h2-console/**");
+            web.ignoring().antMatchers("/h2-console/**","/webjars/**", "/css/**","/js/**");
         }
 
         @Override

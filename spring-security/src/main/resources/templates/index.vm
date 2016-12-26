@@ -9,8 +9,15 @@
 
 <nav role="navigation">
     <ul>
-        <li><a href="${request.contextPath}/users/create">Create a new user</a></li>
-        <li><a href="${request.contextPath}/users">View all users</a></li>
+        #if($springSecurityTool.hasRole("ROLE_ADMIN"))
+            <li><a href="${request.contextPath}/users/create">Create a new user</a></li>
+        #end
+        #if($springSecurityTool.hasRole("ROLE_ADMIN"))
+            <li><a href="${request.contextPath}/users">View all users</a></li>
+        #end
+        #if($springSecurityTool.hasRole("ROLE_USER"))
+            <li><a href="${request.contextPath}/demo">Demo</a></li>
+        #end
         <li>
             <form action="${request.contextPath}/logout" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

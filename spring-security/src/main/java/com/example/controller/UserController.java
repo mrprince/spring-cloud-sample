@@ -45,16 +45,16 @@ public class UserController {
 
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping
     public ModelAndView userList(Model model) {
         if (log.isDebugEnabled()) {
-            log.debug("User create");
+            log.debug("User list");
         }
         return new ModelAndView("/users/list", "list", userService.getAllUsers());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView getUserCreatePage() {
         if (log.isDebugEnabled()) {
@@ -64,7 +64,7 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String userCreate(@ModelAttribute("user") User user) {
         if (log.isDebugEnabled()) {
@@ -74,7 +74,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@Param("id") Long id) {
         userService.delete(id);

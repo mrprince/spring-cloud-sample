@@ -29,7 +29,6 @@ public class SpringSecurityApplication {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
-                    //.antMatchers("/users/**").hasAuthority("ADMIN")
                     .anyRequest().fullyAuthenticated()
                     .and()
                     .formLogin()

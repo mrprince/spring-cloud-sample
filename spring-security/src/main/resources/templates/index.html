@@ -16,10 +16,10 @@
     <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}"/>
     <!--jquery-->
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"
-            th:href="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+            th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
     <!--bootstrap js-->
     <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-            th:href="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/layout :: navbar">&nbsp;</div>
@@ -27,7 +27,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" th:fragment="content">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="#"> <i class="fa fa-home"></i> </a></li>
+            <li><a th:href="@{/}"> <i class="fa fa-home"></i> </a></li>
             <li class="active">Home</li>
         </ol>
     </div><!--/.row-->

@@ -20,10 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Set;
 
-@RequestMapping("/users")
+@RequestMapping("/user")
 @Controller
 @Log4j
 public class UserController {
+
+    @ModelAttribute("page")
+    public String module() {
+        return "user";
+    }
 
     @Autowired
     private UserService userService;
@@ -51,7 +56,7 @@ public class UserController {
         if (log.isDebugEnabled()) {
             log.debug("User list");
         }
-        return new ModelAndView("/users/list", "list", userService.getAllUsers());
+        return new ModelAndView("/user/list", "list", userService.getAllUsers());
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -60,7 +65,7 @@ public class UserController {
         if (log.isDebugEnabled()) {
             log.debug("Getting user create form");
         }
-        return new ModelAndView("users/user", "roles", roleService.getRoles());
+        return new ModelAndView("user/user", "roles", roleService.getRoles());
     }
 
 
@@ -71,14 +76,14 @@ public class UserController {
             log.debug("User create");
         }
         userService.create(user);
-        return "redirect:/users";
+        return "redirect:/user";
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@Param("id") Long id) {
         userService.delete(id);
-        return "redirect:/users";
+        return "redirect:/user";
     }
 
 

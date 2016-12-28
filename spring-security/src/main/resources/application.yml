@@ -4,9 +4,13 @@ spring:
   messages:
     basename: i18n/messages
     fallbackToSystemLocale: false
-server:
-  contextPath: /test
-
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  thymeleaf:
+    cache: false
 #logging.level.org.hibernate.type: TRACE
 
 

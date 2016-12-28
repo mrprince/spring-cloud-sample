@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html layout:decorator="news/layout" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>News List</title>
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <!--font-awesome-->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+    <!--custom css-->
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}"/>
+    <!--jquery-->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"
+            th:href="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <!--bootstrap js-->
+    <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+            th:href="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"> <i class="fa fa-home"></i> </a></li>
+            <li class="active">News</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Dashboard</h1>
+        </div>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Site Traffic Overview</div>
+                <div class="panel-body">
+                    <div class="canvas-wrapper">
+                        <canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.row-->
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+</div><!--/.content-->
+
+</body>
+</html>

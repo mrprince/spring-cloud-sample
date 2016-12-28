@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
-    @ModelAttribute("page")
+    @ModelAttribute("navSection")
     public String module() {
         return "home";
     }

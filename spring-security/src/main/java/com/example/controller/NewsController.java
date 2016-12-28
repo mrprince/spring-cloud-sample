@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/news")
 public class NewsController {
 
-    @ModelAttribute("page")
+    @ModelAttribute("navSection")
     public String module() {
         return "news";
     }

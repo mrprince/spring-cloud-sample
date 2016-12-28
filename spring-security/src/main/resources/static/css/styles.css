@@ -318,6 +318,7 @@ a.bg-danger:hover {
 
 .panel {
     border: 0;
+    margin-top: 15px;
 }
 
 .panel-heading {

@@ -3,40 +3,101 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{view.user.title}">User List</title>
-    <!--bootstrap css-->
+    <!--/* bootstrap css */-->
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
-    <!--font-awesome-->
+    <!--/* font-awesome */-->
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" th:remove="tag"/>
-    <!--custom css-->
+    <!--/* custom css */-->
     <link rel="stylesheet" href="../../static/css/styles.css" th:remove="tag"/>
-    <!--jquery-->
+    <!--/* jquery */-->
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js" th:remove="tag"></script>
-    <!--bootstrap js-->
+    <!--/* bootstrap js */-->
     <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js" th:remove="tag"></script>
+    <!--/* jquery page */-->
+    <script src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"
+            th:src="@{/webjars/bootpag/1.0.7/lib/jquery.bootpag.min.js}"></script>
 </head>
 <body>
 
 <div layout:fragment="content">
-
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Dashboard</h1>
-        </div>
-    </div><!--/.row-->
-
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Site Traffic Overview</div>
+                <div class="panel-heading">System User</div>
                 <div class="panel-body">
-                    <div class="canvas-wrapper">
-                        <canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
+                    <!-- start list -->
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th style="width: 1%">#</th>
+                            <th style="width: 20%">User Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th style="width: 20%">#Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${#lists.isEmpty(list)}">
+                            <td colspan="6">No users</td>
+                        </tr>
+                        <tr th:each="user : ${list}">
+                            <td th:text="${user.id}">#</td>
+                            <td th:text="${user.userName}">Admin</td>
+                            <td th:text="${user.email}">admin@lenovo.com</td>
+                            <td>
+                                <div th:each="role : ${user.roles}"><span th:text="${role.roleName}">Admin</span></div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-xs" th:if="${user.enabled}">Enable
+                                </button>
+                                <button type="button" class="btn btn-danger btn-xs" th:if="${!user.enabled}">Disable
+                                </button>
+                            </td>
+                            <td>
+                                <a th:href="@{/user/save}" class="btn btn-primary btn-xs">
+                                    <i class="fa fa-folder"></i>Add
+                                </a>
+                                <a th:href="@{/user/save(id=${user.id})}" class="btn btn-info btn-xs">
+                                    <i class="fa fa-pencil"></i> Edit
+                                </a>
+                                <a th:href="@{/user/delete(id=${user.id})}" class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash-o"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- end table -->
+                    <div class="text-right">
+                        <div id="page-selection" class="pagination-sm"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div><!--/.row-->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(function () {
 
+            var total = /*[[${list.totalPages}]]*/  1;
+            var page = /*[[${page}]]*/  1;
+            var url = /*[[@{/user}]]*/ "/user";
+
+            $('#page-selection').bootpag({
+                "total": total,
+                "visiblePages": 10
+            }).on("page", function (event, num) {
+                window.location = url + '?page=' + num;
+            });
+            $('#page-selection').bootpag({
+                "total": total,
+                "page": page,
+                "maxVisible": 10
+            });
+        });
+        /*]]>*/
+    </script>
 </div><!--/.content-->
 
 </body>

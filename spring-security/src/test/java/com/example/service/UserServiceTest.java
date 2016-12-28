@@ -16,7 +16,7 @@ public class UserServiceTest {
     @Test
     public void getAllUsers() throws Exception {
 
-        userService.getAllUsers().forEach(user -> System.out.println(user));
+        //userService.getAllUsers().forEach(user -> System.out.println(user));
 
     }
 

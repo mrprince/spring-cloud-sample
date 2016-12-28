@@ -3,18 +3,18 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!--bootstrap css-->
+    <!--/* bootstrap css */-->
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <!--font-awesome-->
+    <!--/* font-awesome */-->
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
           th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
-    <!--custom css-->
+    <!--/* custom css */-->
     <link rel="stylesheet" href="../../static/css/styles.css" th:href="@{/css/styles.css}"/>
-    <!--jquery-->
+    <!--/* jquery */-->
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"
             th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
-    <!--bootstrap js-->
+    <!--/* bootstrap js */-->
     <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
             th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </head>
@@ -49,22 +49,24 @@
 </nav>
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar" th:fragment="sidebar">
     <ul class="nav menu">
-        <li th:class="${page == 'home' ? 'active' : ''}">
+        <li th:class="${navSection == 'home' ? 'active' : ''}">
             <a href="../index.html" th:href="@{/}"><i class="fa fa-tachometer"></i>&nbsp;Home</a>
         </li>
-        <li th:class="${page == 'dashboard' ? 'active' : ''}">
+        <li th:class="${navSection == 'dashboard' ? 'active' : ''}">
             <a href="dashboard.html"><i class="fa fa-bar-chart"></i>&nbsp;Dashboard</a>
         </li>
-        <li th:class="${page == 'news' ? 'active' : ''}">
+        <li th:class="${navSection == 'news' ? 'active' : ''}">
             <a th:href="@{/news}"><i class="fa fa-newspaper-o"></i>&nbsp;News</a>
         </li>
-        <li th:class="${page == 'admin' ? 'active' : ''}">
+        <li th:class="${navSection == 'admin' ? 'active' : ''}">
             <a href="tables.html"><i class="fa fa-table"></i>&nbsp;Tables</a>
         </li>
         <li class="parent" sec:authorize="hasRole('ROLE_ADMIN')">
-            <a href="#sub-item-admin" data-toggle="collapse"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Admin<span class="caret"></span></a>
-            <ul th:classappend="${page == 'user' ? '':'collapse'}" class="children" id="sub-item-admin">
-                <li th:class="${page == 'user' ? 'active' : ''}">
+            <a href="#sub-item-admin" data-toggle="collapse"><i class="fa fa-tasks"
+                                                                aria-hidden="true"></i>&nbsp;Admin<span
+                    class="caret"></span></a>
+            <ul th:classappend="${navSection == 'user' ? '':'collapse'}" class="children" id="sub-item-admin">
+                <li th:class="${navSection == 'user' ? 'active' : ''}">
                     <a th:href="@{/user}"> <i class="fa fa-chevron-circle-right"></i>&nbsp;User</a></li>
                 <li>
                     <a href="#"> <i class="fa fa-chevron-circle-right"></i>&nbsp;Sub Item 2 </a>

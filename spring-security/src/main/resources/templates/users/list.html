@@ -2,7 +2,7 @@
 <html layout:decorator="users/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{view.user.title}">Welcome!</title>
+    <title th:text="#{user.list.page.title}">User List</title>
     <!--/* bootstrap css */-->
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
     <!--/* font-awesome */-->
@@ -21,20 +21,27 @@
 
 <div layout:fragment="content">
     <div class="row">
+        <ol class="breadcrumb">
+            <li><a th:href="@{/}"> <i class="fa fa-home"></i><span th:text="#{home.page.title}">Home</span></a></li>
+            <li th:text="#{admin.page.title}">Admin</li>
+            <li class="active" th:text="#{user.list.page.title}">User List</li>
+        </ol>
+    </div><!--/.row-->
+    <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">System User</div>
+                <div class="panel-heading" th:text="#{user.list.table.title}">System User</div>
                 <div class="panel-body">
                     <!-- start list -->
                     <table class="table table-striped">
                         <thead>
                         <tr>
                             <th style="width: 1%">#</th>
-                            <th style="width: 20%">User Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th style="width: 20%">#Edit</th>
+                            <th style="width: 20%" th:text="#{user.list.username.label}">User Name</th>
+                            <th th:text="#{user.list.email.label}">Email</th>
+                            <th th:text="#{user.list.role.label}">Role</th>
+                            <th th:text="#{user.list.enabled.label}">Enabled</th>
+                            <th style="width: 20%" th:text="#{user.list.actions.label}">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,20 +56,18 @@
                                 <div th:each="role : ${user.roles}"><span th:text="${role.roleName}">Admin</span></div>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success btn-xs" th:if="${user.enabled}">Enable
-                                </button>
-                                <button type="button" class="btn btn-danger btn-xs" th:if="${!user.enabled}">Disable
-                                </button>
+                                <span class="label label-success" th:if="${user.enabled}" th:text="#{user.list.enabled.label}">Enable</span>
+                                <span class="label label-danger" th:if="${!user.enabled}" th:text="#{user.list.disabled.label}">Disabled</span>
                             </td>
                             <td>
                                 <a th:href="@{/users/user}" class="btn btn-primary btn-xs">
-                                    <i class="fa fa-folder"></i>Add
+                                    <i class="fa fa-folder"></i> <span th:text="#{button.label.add}">Add</span>
                                 </a>
                                 <a th:href="@{'/users/user/'+ ${user.id}}" class="btn btn-info btn-xs">
-                                    <i class="fa fa-pencil"></i> Edit
+                                    <i class="fa fa-pencil"></i> <span th:text="#{button.label.edit}">Edit</span>
                                 </a>
                                 <a th:href="@{'/users/delete/'+ ${user.id}}" class="btn btn-danger btn-xs">
-                                    <i class="fa fa-trash-o"></i> Delete
+                                    <i class="fa fa-trash-o"></i> <span th:text="#{button.label.delete}">Delete</span>
                                 </a>
                             </td>
                         </tr>

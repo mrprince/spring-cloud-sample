@@ -24,15 +24,8 @@
 <div th:replace="fragments/layout :: navbar">&nbsp;</div>
 <div th:replace="fragments/layout :: sidebar">&nbsp;</div>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" th:fragment="content">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a th:href="@{/}"> <i class="fa fa-home"></i>Home</a></li>
-            <li>Admin</li>
-            <li class="active">User</li>
-        </ol>
-    </div><!--/.row-->
     <div layout:fragment="content">
-        news content
+        Content Fragment
     </div>
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
 </div><!--/.content-->

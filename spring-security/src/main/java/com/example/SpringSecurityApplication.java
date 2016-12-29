@@ -1,50 +1,36 @@
 package com.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SpringSecurityApplication {
-
+public class SpringSecurityApplication extends WebMvcConfigurerAdapter {
     public static void main(String[] args) {
         SpringApplication.run(SpringSecurityApplication.class, args);
     }
 
-    @Configuration
-    protected static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private MessageSource messageSource;
 
-        @Override
-        public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/h2-console/**", "/webjars/**", "/css/**", "/js/**");
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
-                    .anyRequest().fullyAuthenticated()
-                    .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/")
-                    .failureUrl("/login?error")
-                    .permitAll()
-                    .and()
-                    .logout()
-                    .logoutUrl("/logout")
-                    .deleteCookies("remember-me")
-                    .logoutSuccessUrl("/login?logout")
-                    .permitAll().and()
-                    .rememberMe();
-        }
-
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+        localValidatorFactoryBean.setValidationMessageSource(messageSource);
+        return localValidatorFactoryBean;
     }
 
+    @Override
+    public Validator getValidator() {
+        return validator();
+    }
 }

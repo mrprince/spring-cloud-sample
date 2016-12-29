@@ -25,10 +25,16 @@ public class User implements UserDetails {
 
     @NotNull(message = "{error.user.password.null}")
     @NotEmpty(message = "{error.user.password.empty}")
-    @Size(max = 50, message = "{error.user.password.max}")
-    @Column(length = 50)
+    @Size(max = 20, message = "{error.user.password.max}")
+    @Column(length = 20)
     private String password;
+
+    @NotNull(message = "{error.user.mail.null}")
+    @NotEmpty(message = "{error.user.email.empty}")
+    @Size(max = 50, message = "{error.user.email.max}")
+    @Column(length = 50)
     private String email;
+
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)

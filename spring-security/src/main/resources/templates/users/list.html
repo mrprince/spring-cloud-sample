@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html layout:decorator="user/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html layout:decorator="users/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{view.user.title}">User List</title>
+    <title th:text="#{view.user.title}">Welcome!</title>
     <!--/* bootstrap css */-->
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
     <!--/* font-awesome */-->
@@ -55,13 +55,13 @@
                                 </button>
                             </td>
                             <td>
-                                <a th:href="@{/user/save}" class="btn btn-primary btn-xs">
+                                <a th:href="@{/users/user}" class="btn btn-primary btn-xs">
                                     <i class="fa fa-folder"></i>Add
                                 </a>
-                                <a th:href="@{/user/save(id=${user.id})}" class="btn btn-info btn-xs">
+                                <a th:href="@{'/users/user/'+ ${user.id}}" class="btn btn-info btn-xs">
                                     <i class="fa fa-pencil"></i> Edit
                                 </a>
-                                <a th:href="@{/user/delete(id=${user.id})}" class="btn btn-danger btn-xs">
+                                <a th:href="@{'/users/delete/'+ ${user.id}}" class="btn btn-danger btn-xs">
                                     <i class="fa fa-trash-o"></i> Delete
                                 </a>
                             </td>
@@ -79,11 +79,9 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         $(function () {
-
             var total = /*[[${list.totalPages}]]*/  1;
             var page = /*[[${page}]]*/  1;
             var url = /*[[@{/user}]]*/ "/user";
-
             $('#page-selection').bootpag({
                 "total": total,
                 "visiblePages": 10
@@ -98,7 +96,6 @@
         });
         /*]]>*/
     </script>
-</div><!--/.content-->
-
+</div>
 </body>
 </html>

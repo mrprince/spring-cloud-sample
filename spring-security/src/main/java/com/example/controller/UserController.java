@@ -10,30 +10,32 @@ import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-@RequestMapping("/user")
 @Controller
 @Log4j
+@RequestMapping(value = "/users")
 public class UserController {
-
-    @ModelAttribute("navSection")
-    public String module() {
-        return "user";
-    }
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private RoleService roleService;
+
+    @ModelAttribute("navSection")
+    public String module() {
+        return "user";
+    }
+
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -60,38 +62,51 @@ public class UserController {
         Page<User> pageObj = userService.getAllUsers(pageable);
         model.addAttribute("list", pageObj);
         model.addAttribute("page", page);
-        return "/user/list";
+        return "users/list";
     }
 
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @RequestMapping(value = "/save", method = RequestMethod.GET)
-    public String getUserPage(@RequestParam(value = "id", required = false, defaultValue = "0") Long id, Model model) {
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String getUserPage(Model model) {
         if (log.isDebugEnabled()) {
             log.debug("Getting user create form");
         }
         model.addAttribute("roles", roleService.getRoles());
-        if (id > 0) {
-            model.addAttribute("user",userService.getUserById(id));
-        }
-        return "user/user";
+        return "users/user";
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public String getUserPage(@PathVariable(value = "id") Long id, Model model) {
+        if (log.isDebugEnabled()) {
+            log.debug("Getting user create form");
+        }
+        User user = userService.getUserById(id);
+        if (user != null) {
+            List<Long> selectedRoleIdList = user.getRoles().parallelStream().map(Role::getId).collect(Collectors.toList());
+            model.addAttribute("roles", roleService.getRoles());
+            model.addAttribute("user", user);
+            model.addAttribute("selectedRoleIdList", selectedRoleIdList);
+        }
+        return "users/user";
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String userSave(@ModelAttribute("user") User user) {
         if (log.isDebugEnabled()) {
             log.debug("User create");
         }
         userService.save(user);
-        return "redirect:/user";
+        return "redirect:/users";
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@Param("id") Long id) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/user";
+        return "redirect:/users";
     }
-
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="user/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html layout:decorator="users/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{view.user.title}">User List</title>
@@ -23,9 +23,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Add User</div>
+                <div class="panel-heading">Add/Update User</div>
                 <div class="panel-body">
-                    <form role="form" name="form" method="post" th:action="@{/user/save}">
+                    <form role="form" name="form" method="post" th:action="@{/users/user}">
                         <input type="hidden" name="id" th:if="${user}" th:value="${user?.id}"/>
                         <div class="form-group">
                             <label>User Name</label>
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label>Role</label>
                             <select name="roles" multiple="multiple" class="form-control">
-                                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}">
+                                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}" th:selected="${selectedRoleIdList?.contains(role.id)}">
                                     Option 1
                                 </option>
                             </select>

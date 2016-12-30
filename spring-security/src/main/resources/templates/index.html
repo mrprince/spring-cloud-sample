@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title th:text="#{home.page.title}">Home Page</title>
+    <title th:text="#{site.title} + '-'+ #{home.page.title}">Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -28,7 +28,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a th:href="@{/}"> <i class="fa fa-home"></i> </a></li>
-            <li class="active">Home</li>
+            <li class="active" th:text="#{breadcrumb.home.label}">Home</li>
         </ol>
     </div><!--/.row-->
 

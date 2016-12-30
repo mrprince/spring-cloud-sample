@@ -2,7 +2,7 @@
 <html layout:decorator="users/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{user.form.table.title}">User</title>
+    <title th:text="#{site.title} + '-'+ #{user.form.table.title}">User</title>
     <!--/* bootstrap css */-->
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
     <!--/* font-awesome */-->
@@ -22,10 +22,10 @@
 <div layout:fragment="content">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a th:href="@{/}"> <i class="fa fa-home"></i><span th:text="#{home.page.title}">Home</span></a></li>
-            <li th:text="#{admin.page.title}">Admin</li>
-            <li><a th:href="@{/users}" th:text="#{user.list.page.title}">User List</a></li>
-            <li class="active" th:text="#{user.form.page.title}">Add/Update User</li>
+            <li><a th:href="@{/}"> <i class="fa fa-home"></i><span th:text="#{breadcrumb.home.label}">Home</span></a></li>
+            <li th:text="#{breadcrumb.admin.label}">Admin</li>
+            <li><a th:href="@{/users}" th:text="#{breadcrumb.user.label}">User List</a></li>
+            <li class="active" th:text="#{breadcrumb.user.form.label}">Add/Update User</li>
         </ol>
     </div><!--/.row-->
     <div class="row">

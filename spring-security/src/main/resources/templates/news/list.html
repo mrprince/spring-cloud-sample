@@ -2,7 +2,7 @@
 <html layout:decorator="news/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{view.news.title}">Welcome!</title>
+    <title th:text="#{site.title} + '-'+ #{news.page.title}">Welcome!</title>
     <!--/* bootstrap css */-->
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
     <!--/* font-awesome */-->

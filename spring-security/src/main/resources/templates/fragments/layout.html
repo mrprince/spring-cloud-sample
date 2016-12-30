@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span>Spring</span>Security</a>
+            <a class="navbar-brand" href="#" th:utext="#{nav.brand.label}"><span>Spring</span>Security</a>
             <ul class="user-menu">
                 <li class="dropdown pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -39,7 +39,7 @@
                         <li><a href="#"><i class="fa fa-address-card"></i>&nbsp;Profile</a></li>
                         <li><a href="#"><i class="fa fa-cog"></i>&nbsp;Settings</a></li>
                         <li>
-                            <a href="javascript: document.logoutForm.submit()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
+                            <a href="javascript: document.logoutForm.submit()"><i class="fa fa-sign-out"></i>&nbsp;<span th:text="#{button.label.sing.out}">Sign out</span></a>
                         </li>
                         <form name="logoutForm" th:action="@{/logout}" method="post"/>
                     </ul>
@@ -52,24 +52,24 @@
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar" th:fragment="sidebar">
     <ul class="nav menu">
         <li th:class="${navSection == 'home' ? 'active' : ''}">
-            <a href="../index.html" th:href="@{/}"><i class="fa fa-tachometer"></i>&nbsp;Home</a>
+            <a href="../index.html" th:href="@{/}"><i class="fa fa-tachometer"></i>&nbsp;<span th:text="#{nav.home.label}">Home</span></a>
         </li>
         <li th:class="${navSection == 'dashboard' ? 'active' : ''}">
-            <a href="dashboard.html"><i class="fa fa-bar-chart"></i>&nbsp;Dashboard</a>
+            <a href="dashboard.html"><i class="fa fa-bar-chart"></i>&nbsp;<span th:text="#{nav.dashboard.label}">Dashboard</span></a>
         </li>
         <li th:class="${navSection == 'news' ? 'active' : ''}">
-            <a th:href="@{/news}"><i class="fa fa-newspaper-o"></i>&nbsp;News</a>
+            <a th:href="@{/news}"><i class="fa fa-newspaper-o"></i>&nbsp;<span th:text="#{nav.news.label}">News</span></a>
         </li>
         <li th:class="${navSection == 'admin' ? 'active' : ''}">
-            <a href="tables.html"><i class="fa fa-table"></i>&nbsp;Tables</a>
+            <a href="tables.html"><i class="fa fa-table"></i>&nbsp;<span th:text="#{nav.table.label}">Tables</span></a>
         </li>
         <li class="parent" sec:authorize="hasRole('ROLE_ADMIN')">
             <a href="#sub-item-admin" data-toggle="collapse">
-                <i class="fa fa-tasks"></i>&nbsp;Admin<span class="caret"></span>
+                <i class="fa fa-tasks"></i>&nbsp;<span th:text="#{nav.admin.label}">Admin</span><span class="caret"></span>
             </a>
             <ul th:classappend="${navSection == 'user' ? '':'collapse'}" class="children" id="sub-item-admin">
                 <li th:class="${navSection == 'user' ? 'active' : ''}">
-                    <a th:href="@{/users}"> <i class="fa fa-chevron-circle-right"></i>&nbsp;User</a></li>
+                    <a th:href="@{/users}"> <i class="fa fa-chevron-circle-right"></i>&nbsp;<span th:text="#{nav.user.label}">User</span></a></li>
                 <li>
                     <a href="#"> <i class="fa fa-chevron-circle-right"></i>&nbsp;Sub Item 2 </a>
                 </li>

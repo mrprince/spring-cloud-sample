@@ -2,6 +2,7 @@ package com.example;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -56,6 +57,7 @@ public class ReservationClientApplication {
 
 @RestController
 @RequestMapping("/reservations")
+@Slf4j
 class ReservationApiGateWayRestController{
     @Autowired
     @LoadBalanced
@@ -80,7 +82,9 @@ class ReservationApiGateWayRestController{
     @RequestMapping("/names")
     @HystrixCommand(fallbackMethod = "getReservationNamesFallBack")
     public Collection<String> getReservationNames(){
-
+        if (log.isDebugEnabled()){
+            log.debug("get names!!");
+        }
         ParameterizedTypeReference<Resources<Reservation>> ptr =
                 new ParameterizedTypeReference<Resources<Reservation>>() {
                 };

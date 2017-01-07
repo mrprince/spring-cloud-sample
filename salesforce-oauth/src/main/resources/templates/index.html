@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sample SAML Spring Boot Application</title>
+</head>
+<body>
+<h1>Hi, Click <a th:href="@{/login/salesforce}">here</a> to start the Oauth process</h1>
+<div th:if="${userId}">
+    <h2>Current User: <span th:text="${userId}">unknown</span></h2>
+    <p>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    </p>
+</div>
+</body>
+</html>

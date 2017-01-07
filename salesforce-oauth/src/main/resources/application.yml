@@ -1,0 +1,14 @@
+salesforce:
+  client:
+    clientId: xxx.QEg6pPEnxxxxCZ22IU
+    clientSecret: 6805xxxxxxx4418
+    accessTokenUri: https://portal-lbp.cs18.force.com/services/oauth2/token
+    userAuthorizationUri: https://portal-lbp.cs18.force.com/services/oauth2/authorize
+    clientAuthenticationScheme: form
+    authenticationScheme: query
+    tokenName: oauth_token
+  resource:
+    userInfoUri: https://test.salesforce.com/id/{COMMUNITY_ID}/{USER_ID}/
+logging:
+  level:
+    org.springframework.security: DEBUG

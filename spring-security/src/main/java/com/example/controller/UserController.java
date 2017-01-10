@@ -6,6 +6,7 @@ import com.example.service.RoleService;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -96,14 +97,23 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/user")
-    public String userSave(@ModelAttribute @Valid User user, BindingResult bindingResult) {
+    public String userSave(@ModelAttribute @Valid User user, Model model, BindingResult bindingResult) {
+        //get role
+        model.addAttribute("roles", roleService.getRoles());
+
         if (log.isDebugEnabled()) {
             log.debug("Saving user " + user);
         }
         if (bindingResult.hasErrors()) {
             return "users/user";
         }
-        userService.save(user);
+        try {
+            userService.save(user);
+        } catch (DataIntegrityViolationException e) {
+            log.warn("Exception occurred when trying to save the user, assuming duplicate username", e);
+            bindingResult.reject("error.user.global.duplicate");
+            return "users/user";
+        }
         return "redirect:/users";
     }
 

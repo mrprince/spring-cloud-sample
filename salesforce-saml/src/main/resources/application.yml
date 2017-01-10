@@ -1,0 +1,26 @@
+logging:
+    level:
+        org:
+            springframework:
+                security:
+                    saml: DEBUG
+saml:
+    sso:
+        default-success-url: /home
+        extended-metadata:
+            idp-discovery-enabled: false
+        idps:
+            metadata-location: classpath:/sp-metadata.xml
+        key-manager:
+            private-key-der-location: classpath:/sso.key
+            public-key-pem-location: classpath:/sso.cer
+        logout:
+            default-target-url: /
+        metadata-generator:
+            entity-id: urn:test:partner:lenovo
+        metadata-manager:
+            refresh-check-interval: 0
+security:
+    user:
+        name: user
+        password: password

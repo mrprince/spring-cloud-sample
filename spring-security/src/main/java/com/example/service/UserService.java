@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
     //save user
-    void save(User user);
+    User save(User user);
 
     //delete user
     void delete(Long id);

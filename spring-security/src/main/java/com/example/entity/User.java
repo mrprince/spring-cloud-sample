@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -20,7 +22,7 @@ public class User implements UserDetails {
     @NotNull(message = "{error.user.username.null}")
     @NotEmpty(message = "{error.user.username.empty}")
     @Size(max = 50, message = "{error.user.username.max}")
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String userName;
 
     @NotNull(message = "{error.user.password.null}")

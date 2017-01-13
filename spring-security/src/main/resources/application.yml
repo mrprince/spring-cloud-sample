@@ -13,5 +13,3 @@ spring:
     cache: false
 logging.level.com.example: DEBUG
 #logging.level.org.hibernate.type: TRACE
-
-

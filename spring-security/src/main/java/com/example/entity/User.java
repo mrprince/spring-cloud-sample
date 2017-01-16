@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import org.audit4j.core.annotation.DeIdentify;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,7 @@ public class User implements UserDetails {
     @NotEmpty(message = "{error.user.password.empty}")
     @Size(max = 20, message = "{error.user.password.max}")
     @Column(length = 20)
+    @DeIdentify
     private String password;
 
     @NotNull(message = "{error.user.mail.null}")

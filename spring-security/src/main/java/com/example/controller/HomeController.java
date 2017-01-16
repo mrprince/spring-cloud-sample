@@ -12,14 +12,14 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @RequestMapping("/")
     public String home() {
         return "index";
-    }
-
-    @RequestMapping("/login")
-    public String getLoginForm() {
-        return "login";
     }
 
 }

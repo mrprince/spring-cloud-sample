@@ -22,13 +22,13 @@ public class User implements UserDetails {
 
     @NotNull(message = "{error.user.username.null}")
     @NotEmpty(message = "{error.user.username.empty}")
-    @Size(max = 50, message = "{error.user.username.max}")
+    @Size(max = 20, message = "{error.user.username.max}")
     @Column(length = 50, unique = true)
     private String userName;
 
     @NotNull(message = "{error.user.password.null}")
     @NotEmpty(message = "{error.user.password.empty}")
-    @Size(max = 20, message = "{error.user.password.max}")
+    @Size(min = 5, max = 20, message = "{error.user.password.size}")
     @Column(length = 20)
     @DeIdentify
     private String password;

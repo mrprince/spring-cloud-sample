@@ -36,7 +36,7 @@
                         <i class="fa fa-user"></i>&nbsp;<span sec:authentication="name">User</span><span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#"><i class="fa fa-address-card"></i>&nbsp;Profile</a></li>
+                        <li><a th:href="@{/profile}"><i class="fa fa-address-card"></i>&nbsp;Profile</a></li>
                         <li><a href="#"><i class="fa fa-cog"></i>&nbsp;Settings</a></li>
                         <li>
                             <a href="javascript: document.logoutForm.submit()"><i class="fa fa-sign-out"></i>&nbsp;<span th:text="#{button.label.sing.out}">Sign out</span></a>

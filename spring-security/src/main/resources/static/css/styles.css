@@ -1006,3 +1006,8 @@ h1.page-header {
     height: 65px;
     overflow: scroll;
 }
+
+.form-group.required .control-label:after {
+    color: red;
+    content: "*";
+}

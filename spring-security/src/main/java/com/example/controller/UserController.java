@@ -2,11 +2,12 @@ package com.example.controller;
 
 import com.example.entity.Role;
 import com.example.entity.User;
+import com.example.service.MessageLocaleService;
 import com.example.service.RoleService;
 import com.example.service.UserService;
+import com.example.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,6 +34,12 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private MessageLocaleService messages;
+
+    @Autowired
+    UserValidator validator;
 
     @ModelAttribute("navSection")
     public String module() {
@@ -55,8 +63,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
-    public String userList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                           @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+    public String userList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
         if (log.isDebugEnabled()) {
             log.debug("Getting user list.");
         }
@@ -97,33 +104,34 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/user")
-    public String userSave(@ModelAttribute @Valid User user, Model model, BindingResult bindingResult) {
-        //get role
-        model.addAttribute("roles", roleService.getRoles());
+    public String userSave(@Valid @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirect, Model model) {
 
         if (log.isDebugEnabled()) {
             log.debug("Saving user " + user);
         }
+        validator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
+            if (user != null) {
+                List<Long> selectedRoleIdList = user.getRoles().parallelStream().map(Role::getId).collect(Collectors.toList());
+                model.addAttribute("roles", roleService.getRoles());
+                model.addAttribute("selectedRoleIdList", selectedRoleIdList);
+            }
             return "users/user";
         }
-        try {
-            userService.save(user);
-        } catch (DataIntegrityViolationException e) {
-            log.warn("Exception occurred when trying to save the user, assuming duplicate username", e);
-            bindingResult.reject("error.user.global.duplicate");
-            return "users/user";
-        }
+
+        userService.save(user);
+        redirect.addFlashAttribute("message",messages.getMessage("user.form.message.saveSuccessful"));
         return "redirect:/users";
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirect) {
         if (log.isDebugEnabled()) {
             log.debug("Deleting user by id " + id);
         }
         userService.delete(id);
+        redirect.addFlashAttribute("message",messages.getMessage("user.form.message.deleteSuccessful"));
         return "redirect:/users";
     }
 

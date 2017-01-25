@@ -53,8 +53,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label"><span th:text="#{profile.form.email.label}">Email</span><span class="required">*</span></label>
+                                <div class="form-group required"  th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+                                    <label class="col-md-4 control-label" th:text="#{profile.form.email.label}">Email</label>
                                     <div class="col-md-4">
                                         <div class="input-group">
                                             <div class="input-group-addon">
@@ -66,8 +66,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label"><span th:text="#{profile.form.oldPassword.label}">Old Password</span><span class="required">*</span></label>
+                                <div class="form-group required" th:classappend="${#fields.hasErrors('oldPassword')} ? 'has-error'">
+                                    <label class="col-md-4 control-label" th:text="#{profile.form.oldPassword.label}">Old Password</label>
                                     <div class="col-md-4">
                                         <div class="input-group">
                                             <div class="input-group-addon">
@@ -79,8 +79,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label"><span th:text="#{profile.form.newPassword.label}">New Password</span><span class="required">*</span></label>
+                                <div class="form-group required" th:classappend="${#fields.hasErrors('newPassword')} ? 'has-error'">
+                                    <label class="col-md-4 control-label" th:text="#{profile.form.newPassword.label}">New Password</label>
                                     <div class="col-md-4">
                                         <div class="input-group">
                                             <div class="input-group-addon">
@@ -92,8 +92,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label"><span th:text="#{profile.form.confirmedPassword.label}">Confirmed Password</span><span class="required">*</span></label>
+                                <div class="form-group required" th:classappend="${#fields.hasErrors('confirmedPassword')} ? 'has-error'">
+                                    <label class="col-md-4 control-label" th:text="#{profile.form.confirmedPassword.label}">Confirmed Password</label>
                                     <div class="col-md-4">
                                         <div class="input-group">
                                             <div class="input-group-addon">

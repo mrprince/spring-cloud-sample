@@ -3,19 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{site.title} + '-'+ #{user.list.page.title}">User List</title>
-    <!--/* bootstrap css */-->
-    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
+    <!--/* Bootstrap core CSS */-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
     <!--/* font-awesome */-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" th:remove="tag"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" th:remove="tag"/>
+    <!--/* toastr */-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.2/toastr.min.css" th:remove="tag"/>
     <!--/* custom css */-->
-    <link rel="stylesheet" href="../../static/css/styles.css" th:remove="tag"/>
-    <!--/* jquery */-->
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js" th:remove="tag"></script>
-    <!--/* bootstrap js */-->
-    <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js" th:remove="tag"></script>
-    <!--/* jquery page */-->
-    <script src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"
-            th:src="@{/webjars/bootpag/1.0.7/lib/jquery.bootpag.min.js}"></script>
+    <link rel="stylesheet" href="../../static/css/styles.css"  th:remove="tag"/>
 </head>
 <body>
 
@@ -81,26 +76,31 @@
             </div>
         </div>
     </div><!--/.row-->
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        $(function () {
-            var total = /*[[${list.totalPages}]]*/  1;
-            var page = /*[[${page}]]*/  1;
-            var url = /*[[@{/user}]]*/ "/user";
-            $('#page-selection').bootpag({
-                "total": total,
-                "visiblePages": 10
-            }).on("page", function (event, num) {
-                window.location = url + '?page=' + num;
-            });
-            $('#page-selection').bootpag({
-                "total": total,
-                "page": page,
-                "maxVisible": 10
-            });
-        });
-        /*]]>*/
-    </script>
 </div>
+<!--/* Placed at the end of the document so the pages load faster */-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" th:remove="tag"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" th:remove="tag"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.2/toastr.min.js" th:remove="tag"></script>
+<script src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js" th:remove="tag"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function () {
+        var total = /*[[${list.totalPages}]]*/  1;
+        var page = /*[[${page}]]*/  1;
+        var url = /*[[@{/user}]]*/ "/user";
+        $('#page-selection').bootpag({
+            "total": total,
+            "visiblePages": 10
+        }).on("page", function (event, num) {
+            window.location = url + '?page=' + num;
+        });
+        $('#page-selection').bootpag({
+            "total": total,
+            "page": page,
+            "maxVisible": 10
+        });
+    });
+    /*]]>*/
+</script>
 </body>
 </html>

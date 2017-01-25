@@ -3,19 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{site.title} + '-'+ #{user.form.table.title}">User</title>
-    <!--/* bootstrap css */-->
-    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
+    <!--/* Bootstrap core CSS */-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" th:remove="tag"/>
     <!--/* font-awesome */-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" th:remove="tag"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" th:remove="tag"/>
+    <!--/* toastr */-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.2/toastr.min.css" th:remove="tag"/>
     <!--/* custom css */-->
-    <link rel="stylesheet" href="../../static/css/styles.css" th:remove="tag"/>
-    <!--/* jquery */-->
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js" th:remove="tag"></script>
-    <!--/* bootstrap js */-->
-    <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js" th:remove="tag"></script>
-    <!--/* jquery page */-->
-    <script src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"
-            th:src="@{/webjars/bootpag/1.0.7/lib/jquery.bootpag.min.js}"></script>
+    <link rel="stylesheet" href="../../static/css/styles.css"  th:remove="tag"/>
 </head>
 <body>
 
@@ -34,35 +29,29 @@
                 <div class="panel-heading" th:text="#{user.form.table.title}">Add/Update User</div>
                 <div class="panel-body">
                     <form role="form" name="form" method="post" th:action="@{/users/user}" th:object="${user}">
-                        <input type="hidden" name="id" th:if="${id}" th:value="${id}"/>
-                        <div class="alert bg-danger" th:if="${#fields.hasGlobalErrors()}" role="alert">
-                            <div th:each="err : ${#fields.globalErrors()}">
-                                <i class="fa fa-times-circle-o"></i>&nbsp;<span th:text="${err}">Error</span><a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label th:text="#{user.form.username.label}">User Name <span class="required">*</span></label>
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="form-group required" th:classappend="${#fields.hasErrors('userName')} ? 'has-error'">
+                            <label class="control-label" th:text="#{user.form.username.label}">User Name</label>
                             <input type="text" th:field="*{userName}" class="form-control" required="required"/>
-                            <span class="label label-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">User Name Error</span>
+                            <label class="label label-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">User Name Error</label>
                         </div>
-                        <div class="form-group">
-                            <label th:text="#{user.form.email.label}">Email<span class="required">*</span></label>
+                        <div class="form-group required" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+                            <label class="control-label" th:text="#{user.form.email.label}">Email</label>
                             <input type="email" th:field="*{email}" class="form-control" required="required"/>
                             <span class="label label-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
                         </div>
 
-                        <div class="form-group">
-                            <label th:text="#{user.form.password.label}">Password <span class="required">*</span></label>
+                        <div class="form-group required" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+                            <label class="control-label" th:text="#{user.form.password.label}">Password</label>
                             <input type="password" name="password" th:value="*{password}" class="form-control" />
                             <span class="label label-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
                         </div>
                         <div class="form-group">
-                            <label th:text="#{user.form.enabled.label}">Enabled</label>
+                            <label class="control-label" th:text="#{user.form.enabled.label}">Enabled</label>
                             <input type="checkbox" th:field="*{enabled}" />
                         </div>
                         <div class="form-group">
-                            <label th:text="#{user.form.role.label}">Role</label>
+                            <label class="control-label" th:text="#{user.form.role.label}">Role</label>
                             <select name="roles" multiple="multiple" class="form-control">
                                 <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}" th:selected="${selectedRoleIdList?.contains(role.id)}">
                                     Role One

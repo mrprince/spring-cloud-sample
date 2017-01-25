@@ -2,21 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!--/* bootstrap css */-->
-    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="#{site.title} + '-'+ #{login.page.title}">Login</title>
+    <!--/* Bootstrap core CSS */-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <!--/* font-awesome */-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
-          th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
     <!--/* custom css */-->
     <link rel="stylesheet" href="../../static/css/styles.css" th:href="@{/css/styles.css}"/>
-    <!--/* jquery */-->
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"
-            th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
-    <!--/* bootstrap js */-->
-    <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <!--/* HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries */-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:fragment="navbar">
@@ -36,10 +36,10 @@
                         <i class="fa fa-user"></i>&nbsp;<span sec:authentication="name">User</span><span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a th:href="@{/profile}"><i class="fa fa-address-card"></i>&nbsp;Profile</a></li>
+                        <li><a th:href="@{/profile}"><i class="fa fa-address-card"></i>&nbsp;<span th:text="#{menu.label.profile}">Profile</span></a></li>
                         <li><a href="#"><i class="fa fa-cog"></i>&nbsp;Settings</a></li>
                         <li>
-                            <a href="javascript: document.logoutForm.submit()"><i class="fa fa-sign-out"></i>&nbsp;<span th:text="#{button.label.sing.out}">Sign out</span></a>
+                            <a href="javascript: document.logoutForm.submit()"><i class="fa fa-sign-out"></i>&nbsp;<span th:text="#{menu.label.singOut}">Sign out</span></a>
                         </li>
                         <form name="logoutForm" th:action="@{/logout}" method="post"/>
                     </ul>

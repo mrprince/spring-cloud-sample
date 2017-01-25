@@ -2,7 +2,7 @@ package com.example.security;
 
 
 import com.example.service.LoginAttemptService;
-import com.example.service.MessageByLocaleService;
+import com.example.service.MessageLocaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,7 +25,7 @@ public class LimitLoginAuthenticationProvider implements AuthenticationProvider 
     private LoginAttemptService loginAttemptService;
 
     @Autowired
-    private MessageByLocaleService messages;
+    private MessageLocaleService messages;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

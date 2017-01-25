@@ -1,5 +1,5 @@
 package com.example.service;
 
-public interface MessageByLocaleService {
+public interface MessageLocaleService {
     public String getMessage(String key);
 }

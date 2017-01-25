@@ -29,6 +29,7 @@
 		<angularjs.version>1.4.9</angularjs.version>
         <bootpage.version>1.0.7</bootpage.version>
 		<highcharts.version>5.0.6</highcharts.version>
+		<toastr.version>2.1.2</toastr.version>
 	</properties>
 
 	<dependencies>
@@ -69,11 +70,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-actuator-starter</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.audit4j</groupId>
 			<artifactId>audit4j-core</artifactId>
 			<version>${audit4j.version}</version>
@@ -112,6 +108,11 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>highcharts</artifactId>
 			<version>${highcharts.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>toastr</artifactId>
+			<version>${toastr.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
